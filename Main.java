@@ -36,11 +36,6 @@ public class Main {
    
 		System.out.println("The word is : "+ s);
 	
-		
-		/*System.out.println(words[1]);
-		System.out.println(words[9999]);
-		System.out.println(words[3]);
-		*/
 	}
 
 }
