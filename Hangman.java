@@ -10,6 +10,8 @@ public class Hangman implements IHangman{
 	private String[] words = new String[10000] ;
 	private String game ;
 	private int maxGuess ;
+	private String varString ;
+
 	
 	@Override
 	public void setDictionary(String[] words) {
@@ -38,6 +40,7 @@ public class Hangman implements IHangman{
 		String secretWord = words[randomNum];
 		if ( secretWord.matches("[a-zA-Z]+") ) {
 			game = secretWord;
+			varString = game;
 			return secretWord ;
 		}
 		else {
@@ -56,15 +59,19 @@ public class Hangman implements IHangman{
 		}
 	}
 
+
 	@Override
 	public String guess(Character c) throws Exception {
 		
 		char constChar[] = game.toCharArray();
-		char varChar[] = new char [game.length()];
-		
-		for (int i = 0 ; i < game.length() ; i++) {
-			varChar[i] = '-';
+		char varChar[] = varString.toCharArray();
+
+		if (maxGuess == 6) {
+			for (int i = 0 ; i < game.length() ; i++) {
+				varChar[i] = '-';
+			}		
 		}
+
 		
 		boolean flag = false;
 		for (int i = 0 ; i < game.length() ; i++) {
@@ -75,11 +82,11 @@ public class Hangman implements IHangman{
 		}
 		if (flag == false) {
 			maxGuess--;
-			if (maxGuess < 1) {
+			if (maxGuess <= 0) {
 				return null;
 			}
 		}
-		String varString = new String(varChar);
+		varString = String.copyValueOf(varChar);
 		return varString;
 	}
 }
